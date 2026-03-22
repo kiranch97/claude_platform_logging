@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="Arial, sans-serif">
+  <rect width="900" height="500" fill="#f8f9fa" rx="8"/>
+  <text x="450" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e1e1e">claude_platform_logging — Logging Stack</text>
+  <text x="450" y="48" text-anchor="middle" font-size="12" fill="#6c757d">Loki + Grafana + Promtail on Kubernetes</text>
+
+  <!-- All pods in cluster -->
+  <rect x="50" y="70" width="800" height="60" fill="#dbe4ff" rx="6" stroke="#4a9eed" opacity="0.7"/>
+  <text x="450" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="#2563eb">All Pods in Cluster (every namespace)</text>
+  <text x="450" y="115" text-anchor="middle" font-size="12" fill="#2563eb">stdout / stderr logs → /var/log/pods/**</text>
+
+  <!-- Promtail arrow down -->
+  <line x1="450" y1="130" x2="450" y2="170" stroke="#4a9eed" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="470" y="155" font-size="11" fill="#4a9eed">collects</text>
+
+  <!-- Promtail -->
+  <rect x="300" y="170" width="300" height="65" fill="#ffd8a8" rx="6" stroke="#f59e0b" stroke-width="2"/>
+  <text x="450" y="194" text-anchor="middle" font-size="13" font-weight="bold" fill="#713f12">Promtail DaemonSet</text>
+  <text x="450" y="210" text-anchor="middle" font-size="11" fill="#713f12">Runs on EVERY node | grafana/promtail:2.9.4</text>
+  <text x="450" y="225" text-anchor="middle" font-size="11" fill="#713f12">Namespace: logging | Tails all pod logs</text>
+
+  <!-- Promtail to Loki -->
+  <line x1="450" y1="235" x2="450" y2="275" stroke="#f59e0b" stroke-width="2"/>
+  <text x="460" y="260" font-size="11" fill="#f59e0b">push</text>
+
+  <!-- Loki -->
+  <rect x="300" y="275" width="300" height="65" fill="#d0bfff" rx="6" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="450" y="299" text-anchor="middle" font-size="13" font-weight="bold" fill="#2d1b69">Loki</text>
+  <text x="450" y="315" text-anchor="middle" font-size="11" fill="#2d1b69">Log aggregation | grafana/loki:2.9.4</text>
+  <text x="450" y="330" text-anchor="middle" font-size="11" fill="#2d1b69">Port: 3100 | PVC: 10Gi | Namespace: logging</text>
+
+  <!-- Loki to Grafana -->
+  <line x1="450" y1="340" x2="450" y2="380" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="460" y="365" font-size="11" fill="#8b5cf6">datasource</text>
+
+  <!-- Grafana -->
+  <rect x="280" y="380" width="340" height="75" fill="#b2f2bb" rx="6" stroke="#22c55e" stroke-width="2"/>
+  <text x="450" y="404" text-anchor="middle" font-size="13" font-weight="bold" fill="#14532d">Grafana</text>
+  <text x="450" y="420" text-anchor="middle" font-size="11" fill="#14532d">Log dashboards + LogQL queries</text>
+  <text x="450" y="435" text-anchor="middle" font-size="11" fill="#14532d">Port: 3000 | PVC: 2Gi | NodePort: 30030</text>
+  <text x="450" y="448" text-anchor="middle" font-size="10" fill="#0f766e">Ingress: grafana.local:30080 | admin/admin</text>
+
+  <!-- LogQL note -->
+  <rect x="50" y="440" width="220" height="45" fill="#fff3bf" rx="5" stroke="#f59e0b"/>
+  <text x="160" y="460" text-anchor="middle" font-size="11" font-weight="bold" fill="#713f12">LogQL Example:</text>
+  <text x="160" y="475" text-anchor="middle" font-size="11" fill="#713f12">{namespace="mlflow"} |= "error"</text>
+
+  <rect x="630" y="440" width="220" height="45" fill="#a5d8ff" rx="5" stroke="#4a9eed"/>
+  <text x="740" y="460" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e3a5f">Auto-provisioned:</text>
+  <text x="740" y="475" text-anchor="middle" font-size="11" fill="#1e3a5f">Loki datasource in Grafana</text>
+</svg>
